@@ -18,7 +18,7 @@ module ItemContainer
 
     end
 
-    /*method_missing(show_all_items)*/
+    #method_missing(show_all_items)
   end
 
   self.included(class_instance)
