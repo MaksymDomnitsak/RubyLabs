@@ -2,10 +2,10 @@
 
 class Item
 
-  attr_accessor :name,:type,:price,:company,:availability
+  attr_accessor :name,:type,:price,:shop,:availability
 
-  def initialize(name,type,price,company,availability)
-    @name,@type,@price,@company,@availability = name,type,price,company,availability
+  def initialize(name,type,price,company,availability = 0)
+    @name,@type,@price,@shop,@availability = name,type,price,shop,availability
   end
 
   def info
@@ -16,8 +16,9 @@ class Item
     end
   end
 
+  
   def to_s
-    "Item: #{@name}, Type: #{@type}, Price: #{@price}, Company: #{@company}, Is available: #{@availability > 0 ? "true" : "false"}"
+    "Item: #{@name}, Type: #{@type}, Price: #{@price}, Company: #{@shop}, Is available: #{@availability.to_i > 0 ? 'true' : 'false'}"
   end
 
   def to_h
@@ -25,7 +26,7 @@ class Item
       name: @name,
       type: @type,
       price: @price,
-      company: @company,
+      company: @shop,
       availability: @availability
     }
   end
