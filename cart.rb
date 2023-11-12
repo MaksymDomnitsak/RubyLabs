@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require_relative 'item_container'
+require 'csv'
+require 'json'
 
 class Cart
   include ItemContainer
@@ -20,18 +23,16 @@ class Cart
   end
 
   def save_to_json(filename)
-    File.open(filename, 'w') do |file|
-      @items.each { |i|
-        file.write(JSON.generate(i.map(&:to_h)))
-      }
+    File.open(filename + '.json', 'w') do |file|
+      file.write(JSON.generate(@items.map(&:to_h)))
     end
   end
 
   def save_to_csv(filename)
-    CSV.open(filename, 'w') do |csv|
-      csv << ["Name","Type","Price","Company","Quantity"]
+    CSV.open(filename + '.csv', 'w') do |csv|
+      csv << ["Name","Type","Price","Shop","Quantity"]
       @items.each do |item|
-        csv << [item.name, item.type, item.price, item.company, item.quantity]
+        csv << [item[:product].name, item[:product].type, item[:product].price, item[:product].shop, item[:quantity]]
       end
     end
   end

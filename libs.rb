@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-require 'item'
-require 'parser'
-require 'cart'
+require_relative 'item'
+require_relative 'parser'
+require_relative 'cart'

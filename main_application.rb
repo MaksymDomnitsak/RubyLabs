@@ -6,5 +6,22 @@ class MainApplication
   #@@path_for_csv = "D:/Csv/"
   #@@path_for_json = "D:/Json/"
 
+  def self.get_items()
+    parser = Parser.new
+
+    items = parser.parse_item(
+      '[data-qaid="product_presence"]',
+      /Готово до відправки/,
+      {
+        name: '[data-qaid="product_name"]',
+        price: '[data-qaid="product_price"]',
+        shop: '[data-qaid="company_name"]',
+        availability: '[data-qaid="product_presence"]'
+      }
+    )
+  
+   items
+  end
+
 
 end
