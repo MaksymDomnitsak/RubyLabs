@@ -5,9 +5,10 @@ class MainApplication
 
   #@@path_for_csv = "D:/Csv/"
   #@@path_for_json = "D:/Json/"
+  @url="https://prom.ua/ua/Monitory"
 
-  def self.get_items()
-    parser = Parser.new
+  def self.get_items
+    parser = Parser.new(@url)
 
     items = parser.parse_item(
       '[data-qaid="product_presence"]',

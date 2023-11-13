@@ -2,10 +2,11 @@
 
 module ItemContainer
   module ClassMethods
-    def total_price
-      @total_price ||= 0
-      @items.each do |item|
-        @total_price += item.product.price * item.quantity
+    def total_price(cart)
+      cart.total_price = 0.0
+      cart.items.each do |item|
+        price = item[:product].price.to_s.tr(' ','').tr('₴','')
+        cart.total_price += price.to_f * item[:quantity]
       end
     end
   end
@@ -24,14 +25,22 @@ module ItemContainer
     end
 
     def method_missing(method, *args, &block)
-      if(method.to_s = "show_all_items")
-        define_method(method) do
-          @items.each { |i|
-            puts item.product.to_s+", quantity: "+item.quantity
+      if method.to_s.strip.eql?('show_all_items'.to_s)
+        ItemContainer.define_method('show_all_items') do
+          res = ''
+          items.each { |item|
+            res += item[:product].to_s+", quantity: "+item[:quantity].to_s+"\n"
           }
+          puts res
         end
-        send(method,*args,&block)
+        public_send(method,*args)
+      else
+        super.method_missing(method, *args, &block)
       end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      method_name.to_s.start_with?('show_') || super
     end
   end
 

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
-require_relative 'item_container'
 require 'csv'
 require 'json'
+require_relative 'item_container'
 
 class Cart
   include ItemContainer
+
+  attr_accessor :items,:total_price
 
   def initialize
     @items = []
@@ -30,7 +32,7 @@ class Cart
 
   def save_to_csv(filename)
     CSV.open(filename + '.csv', 'w') do |csv|
-      csv << ["Name","Type","Price","Shop","Quantity"]
+      csv << %w[Name Type Price Shop Quantity]
       @items.each do |item|
         csv << [item[:product].name, item[:product].type, item[:product].price, item[:product].shop, item[:quantity]]
       end

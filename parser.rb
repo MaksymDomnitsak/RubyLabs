@@ -5,8 +5,8 @@ require 'open-uri'
 
 class Parser
 
-  def initialize
-    @url = "https://prom.ua/ua/Monitory"
+  def initialize(url)
+    @url = url
   end
 
 
