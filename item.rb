@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Item
+  include Comparable
 
   attr_accessor :name,:type,:price,:shop,:availability
 
@@ -14,6 +15,10 @@ class Item
     else
       self.to_s
     end
+  end
+
+  def <=>(other_item)
+    self.price <=> other_item.price
   end
 
   

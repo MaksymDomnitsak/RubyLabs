@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ItemContainer
+  include Enumerable
   module ClassMethods
     def total_price(cart)
       cart.total_price = 0.0
@@ -22,6 +23,10 @@ module ItemContainer
 
     def delete_items
       @items = []
+    end
+
+    def each
+      @items.each { |item| yield(item) }
     end
 
     def method_missing(method, *args, &block)

@@ -19,6 +19,8 @@ class Cart
       save_to_json(filename)
     when :csv
       save_to_csv(filename)
+    when :yaml
+      save_to_yaml(filename)
     else
       puts "Unsupported format for saving: #{format}"
     end
@@ -26,7 +28,7 @@ class Cart
 
   def save_to_json(filename)
     File.open(filename + '.json', 'w') do |file|
-      file.write(JSON.generate(@items.map(&:to_h)))
+      file.write(JSON.pretty_generate(@items.map(&:to_h)))
     end
   end
 
@@ -36,6 +38,17 @@ class Cart
       @items.each do |item|
         csv << [item[:product].name, item[:product].type, item[:product].price, item[:product].shop, item[:quantity]]
       end
+    end
+  end
+
+  def save_to_yaml(filename)
+    data = {
+      items: @items.map { |item| item.to_h },
+      total_items: self.items.length
+    }
+
+    File.open(filename, 'w') do |file|
+      file.write(data.to_yaml)
     end
   end
 end
