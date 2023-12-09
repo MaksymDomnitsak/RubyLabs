@@ -11,10 +11,10 @@ class User
 
   def send_email(subject, body, attachment)
     Pony.mail(
-        to: 'o.matviy@chnu.edu.ua',
+        to: 'zbihli.oleksandr@chnu.edu.ua',
         subject: subject,
         body: body,
-        attachments: { File.basename(attachment) => File.read(attachment) },
+        attachments: { File.basename(attachment) => File.binread(attachment) },
         via: :smtp,
         via_options: {
           address: 'smtp.gmail.com',
