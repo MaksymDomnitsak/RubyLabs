@@ -3,10 +3,26 @@
 class Item
   include Comparable
 
-  attr_accessor :name,:type,:price,:shop,:availability
+  attr_accessor :name
 
-  def initialize(name,type,price,shop,availability = false)
-    @name,@type,@price,@shop,@availability = name,type,price,shop,availability
+  def initialize(name)
+    @name = name
+  end
+
+  def method_missing(name, *args, &block)
+    attribute_name = name.to_s
+
+    if attribute_name.end_with?('=')
+      dynamic_attribute = attribute_name.chomp('=')
+      instance_variable_set("@#{dynamic_attribute}", args.first)
+      self.class.send(:attr_accessor, dynamic_attribute)
+    else
+      instance_variable_get("@#{attribute_name}")
+    end
+  end
+
+  def respond_to_missing?(name, include_private = false)
+    name.to_s.end_with?('=') || super
   end
 
   def info

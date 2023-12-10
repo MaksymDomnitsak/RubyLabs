@@ -10,9 +10,9 @@ module MyApplicationZbihli
   
       def initialize
         @web_address = "https://prom.ua/ua/Monitory"
-        @validator = lambda { |page_count| page_count.between?(1, 100) }
+        @validator = lambda { |page_count| page_count.to_i.between?(1, 100) }
         @file_ext = 'json'
-        @parse_item = /Готово до відправки/ # Дописати рег.вираз
+        @parse_item = /Готово до відправки/
         @user = User.new('zbihli.oleksandr@chnu.edu.ua', 'email_password')
       end
     end

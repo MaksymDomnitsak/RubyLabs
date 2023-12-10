@@ -11,7 +11,7 @@ class User
 
   def send_email(subject, body, attachment)
     Pony.mail(
-        to: 'zbihli.oleksandr@chnu.edu.ua',
+        to: 'domnitsak.maksym@chnu.edu.ua',
         subject: subject,
         body: body,
         attachments: { File.basename(attachment) => File.binread(attachment) },

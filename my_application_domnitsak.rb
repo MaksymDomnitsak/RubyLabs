@@ -12,10 +12,13 @@ module MyApplicationDomnitsak
 
     def initialize
       @web_address = "https://prom.ua/ua/Monitory"
-      @validator = lambda { |page_count| page_count.between?(1, 100) }
+      @validator = lambda { |page_count| page_count.to_i.between?(1, 100) }
       @file_ext = 'rb'
-      @parse_item = /Готово до відправки/ # Дописати рег.вираз
-      @user = User.new('domnitsak.maksym@chnu.edu.ua', 'email_password')
+      @parse_item = /Готово до відправки/
+      file_pass = File.open('text.txt')
+      @user = User.new('domnitsak.maksym@chnu.edu.ua', file_pass.read)
+      file_pass.close
     end
+
   end
 end

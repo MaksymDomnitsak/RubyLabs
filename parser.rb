@@ -19,16 +19,15 @@ class Parser
 
     gallery_items.each do |product_block|
       next unless product_block.at_css("#{selection_condition}:contains('#{value_regex.source}')")
-
-      item_data = {}
+      item = Item.new("")
 
       attribute_selectors.each do |attribute, selector|
-        item_data[attribute] = product_block.at_css(selector)&.text&.strip
+        item.instance_variable_set('@'.to_s+attribute.to_s,product_block.at_css(selector)&.text&.strip)
       end
 
-      item_data[:availability] = get_availability_value(item_data[:availability])
-
-      items << Item.new(item_data[:name], item_type, item_data[:price], item_data[:shop], item_data[:availability])
+      item.availability = get_availability_value(item.availability)
+      item.type = item_type
+      items << item
     end
 
     items

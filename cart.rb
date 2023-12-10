@@ -47,7 +47,7 @@ class Cart
       total_items: self.items.length
     }
 
-    File.open(filename, 'w') do |file|
+    File.open(filename + '.yaml' , 'w') do |file|
       file.write(data.to_yaml)
     end
   end

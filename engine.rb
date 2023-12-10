@@ -1,9 +1,8 @@
 require_relative 'libs'
 
 class Engine
-    def self.run()
-        settings = MyApplicationZbihli::MyApplicationSettings.instance
-
+    def self.run
+        settings = MyApplicationDomnitsak::MyApplicationSettings.instance
         cart = Cart.new
 
         general_items = []
@@ -16,9 +15,9 @@ class Engine
                 general_items.concat item
             end
         end
-      
+
         threads.each{|t| t.join}
-        
+
         general_items.each do |item|
             cart.add_item(item, 1)
         end
